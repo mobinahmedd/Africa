@@ -8,11 +8,24 @@
 import SwiftUI
 
 struct HeadingView: View {
+    
+    let text : String
+    let icon : String
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        HStack {
+            Image(systemName: icon)
+                .foregroundColor(.accentColor)
+                .imageScale(.large)
+            Text(text)
+                .font(.title3)
+                .fontWeight(.bold)
+        }
+        .padding(.vertical)
+        
     }
 }
 
 #Preview {
-    HeadingView()
+    HeadingView(text: "Heading", icon: "apps.iphone")
 }
