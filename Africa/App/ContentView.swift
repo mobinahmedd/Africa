@@ -13,7 +13,7 @@ struct ContentView: View {
     
     // MARK: _ BODY
     var body: some View {
-        NavigationStack{
+        NavigationStack(){
             List{
                 
                 CoverImageView()
@@ -22,13 +22,17 @@ struct ContentView: View {
                 
                 Group{
                     ForEach(animals){animal in
-                        AnimalListItemView(animal : animal)
-                    }
+                        NavigationLink(destination: AnimalDetailView(animal: animal)) {
+                            AnimalListItemView(animal: animal)
+                        } //: LINK
+                    }//: LOOP
                 }//: GROUP
                 
                 
             }//: List
             .navigationBarTitle("Africa", displayMode: .large)
+            .listStyle(PlainListStyle()) // Makes it look like scroll view
+            .scrollIndicators(.hidden)
         }//: NAVIGATION STACK
     }
 }

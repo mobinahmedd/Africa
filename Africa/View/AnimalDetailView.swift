@@ -13,8 +13,8 @@ struct AnimalDetailView: View {
     
     // MARK: - BODY
     var body: some View {
-        NavigationStack{
-            VStack{
+        ScrollView(.vertical, showsIndicators: false){
+            VStack(alignment: .center, spacing: 20){
                 // HERO IMAGE
                 Image(animal.image)
                     .resizable()
@@ -40,11 +40,55 @@ struct AnimalDetailView: View {
                     .foregroundColor(.accentColor)
                     .padding(.horizontal)
                 
+                // GALLERY
+                Group{
+                    HeadingView(text: "Wilderness in Pictures", icon: "photo.on.rectangle.angled")
+                    
+                    InsetGalleryView(animal: animal)
+                }
+                .padding(.horizontal)
+
                 
-                Spacer()
-            }
-            .navigationBarTitle("Learn about \(animal.name)",displayMode: .inline)
-        }//: NAVIGATION STACK
+                // FACT
+                Group{
+                    HeadingView(text: "Did you know?", icon: "questionmark.circle")
+                    
+                    InsetFactView(animal: animal)
+                }
+                .padding(.horizontal)
+
+                
+                // DESCRIPTION
+                Group{
+                    HeadingView(text: "All about \(animal.name)", icon: "info.circle")
+                    
+                    Text(animal.description)
+                        .multilineTextAlignment(.leading)
+                        .layoutPriority(1)
+                }
+                .padding(.horizontal)
+                
+                // MAP
+                Group{
+                    HeadingView(text: "National Park", icon: "map")
+                    
+                    InsetMapView()
+                }
+                .padding(.horizontal)
+                
+                // LINK
+                Group{
+                    HeadingView(text: "Learn More", icon: "books.vertical")
+                    
+                    ExternalWeblinkView(animal: animal)
+                }
+                .padding(.horizontal)
+
+                
+            }//:VStack
+            .navigationBarTitle("Learn about \(animal.name)", displayMode: .inline)
+        }//: Scroll View
+    
     }
 }
 
@@ -52,7 +96,7 @@ struct AnimalDetailView: View {
 struct AnimalDetailView_Preview : PreviewProvider{
     static var animalData : [Animal] = Bundle.main.decode("animals.json")
     static var previews: some View{
-        AnimalDetailView(animal: animalData[1])
+        AnimalDetailView(animal: animalData[0])
     }
 }
 
